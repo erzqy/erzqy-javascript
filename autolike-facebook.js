@@ -110,5 +110,5 @@ function changeListener() {
   }
 }
 
-// initilizing first time
+// initializing first time
 changeListener();

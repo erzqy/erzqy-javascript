@@ -1,18 +1,19 @@
 var liker = null;
 
 
-function tulis(argument) {
+function logger(argument) {
 	console.log(argument);
 }
 
 function likeGenerator() {
-	io = 0; // initilizing number liked
 
 	// $$ is a Selector by firefox like a jquery $
 	notliked = $$('a[data-testid="UFI2ReactionLink"]');
 
+  // checking info box 
 	if (document.querySelector('#boxInfo') == undefined) {
 
+    // creating info box if not exists
 		boxInfo = document.createElement('div');
 		boxInfo.style = 'background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:100px;height:60px;border:4px solid black;z-index:9999;padding-top:15px;';
 		boxInfo.id = 'boxInfo';
@@ -42,6 +43,7 @@ function likeGenerator() {
 		document.getElementsByTagName('body')[0].appendChild(boxInfo);
 	}	
 
+  // i'm not a good coder, here may can be optimized
 	counted = 0;
 	notliked.forEach(
 	  function(val){
@@ -55,48 +57,58 @@ function likeGenerator() {
   alllike = document.querySelector('#alllike');
   alllike.innerHTML = parseInt(alllike.innerHTML) + counted;
 
+  // executing list like button
 	notliked.forEach(
 	  function(val){
 	    
 	    // checking color of liked post ot not
 	    if (val.style.color !== "rgb(53, 120, 229)"){
-        io++;
- 
-        // clicking 
+
+        // clicking like button
         val.click();
 
-       // printing to log
+        // set liked counter on info box
+        liked = document.querySelector('#liked');
+		    liked.innerHTML = parseInt(liked.innerHTML) + 1;
 
-       liked = document.querySelector('#liked');
-		   liked.innerHTML = parseInt(liked.innerHTML) + 1;
-
-		   setInterval(function(){
-	       tulis(String(Date()) + " - " + String(io));
+    	  setTimeout(function(){
+          // printing to log
+	       logger(String(Date()) + " - " + String(liked.innerHTML));
 		   }, 2000)
 
       }
     });	
 
+  // i'm not sure about this
 	notliked = null;
 }
 
 function changeListener() {
 
+  // checking for liker 
 	if (liker === null) {
-		tulis('creating listener.');
+		logger('creating listener.');
 
+    // creating listener
 		liker = setInterval(function(){
-				likeGenerator();
-		    window.scrollBy(0,50);
-			},
+				
+      // call like generator
+      likeGenerator();
+
+      // set auto scrolling
+		  window.scrollBy(0,50);
+		},
 			  
-			  // interval 10 seconds
-			  10000
-			);		
+		// interval 10 seconds
+		10000 );		
 	} else {
-		tulis('removing listener.')
+
+		logger('removing listener.')
+
+    // clear listener liker
 		clearInterval(liker);
 	}
 }
 
+// initilizing first time
 changeListener();

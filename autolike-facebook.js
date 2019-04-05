@@ -2,112 +2,112 @@ var liker = null;
 
 
 function logger(argument) {
-	console.log(argument);
+  console.log(argument);
 }
 
 function likeGenerator() {
 
-	// $$ is a Selector by firefox like a jquery $
-	notliked = $$('a[data-testid="UFI2ReactionLink"]');
+  // $$ is a Selector by firefox like a jquery $
+  notliked = $$('a[data-testid="UFI2ReactionLink"]');
 
   // checking info box 
-	if (document.querySelector('#boxInfo') == undefined) {
+  if (document.querySelector('#boxInfo') == undefined) {
 
     // creating info box if not exists
-		boxInfo = document.createElement('div');
-		boxInfo.style = 'background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:100px;height:60px;border:4px solid black;z-index:9999;padding-top:15px;';
-		boxInfo.id = 'boxInfo';
+    boxInfo = document.createElement('div');
+    boxInfo.style = 'background-color:#ddd;font-size:16px;text-align:center;position:fixed;top:40px;right:40px;width:100px;height:60px;border:4px solid black;z-index:9999;padding-top:15px;';
+    boxInfo.id = 'boxInfo';
 
-		liked = document.createElement('span');
-		liked.innerHTML = 0;
-		liked.id = 'liked';
+    liked = document.createElement('span');
+    liked.innerHTML = 0;
+    liked.id = 'liked';
 
-		alllike = document.createElement('span');
-		alllike.id = 'alllike';
-		alllike.innerHTML = 0;
+    alllike = document.createElement('span');
+    alllike.id = 'alllike';
+    alllike.innerHTML = 0;
 
-		buttonNav = document.createElement('button');
-		buttonNav.id = 'likecontrol';
-		buttonNav.style = 'margin-top:12px;'
-		buttonNav.innerHTML = 'state !';
-		buttonNav.onclick = function(event){
-			changeListener();
-		};
+    buttonNav = document.createElement('button');
+    buttonNav.id = 'likecontrol';
+    buttonNav.style = 'margin-top:12px;'
+    buttonNav.innerHTML = 'state !';
+    buttonNav.onclick = function(event){
+      changeListener();
+    };
 
-		boxInfo.appendChild(liked);
-		boxInfo.appendChild(document.createTextNode(' of '));
-		boxInfo.appendChild(alllike);
-		boxInfo.appendChild(buttonNav);
+    boxInfo.appendChild(liked);
+    boxInfo.appendChild(document.createTextNode(' of '));
+    boxInfo.appendChild(alllike);
+    boxInfo.appendChild(buttonNav);
 
 
-		document.getElementsByTagName('body')[0].appendChild(boxInfo);
-	}	
+    document.getElementsByTagName('body')[0].appendChild(boxInfo);
+  }  
 
   // i'm not a good coder, here may can be optimized
-	counted = 0;
-	notliked.forEach(
-	  function(val){
-	    
-	    // checking color of liked post ot not
-	    if (val.style.color !== "rgb(53, 120, 229)"){
-	    	counted++;
+  counted = 0;
+  notliked.forEach(
+    function(val){
+      
+      // checking color of liked post ot not
+      if (val.style.color !== "rgb(53, 120, 229)"){
+        counted++;
       }
-    });	
+    });  
 
   alllike = document.querySelector('#alllike');
   alllike.innerHTML = parseInt(alllike.innerHTML) + counted;
 
   // executing list like button
-	notliked.forEach(
-	  function(val){
-	    
-	    // checking color of liked post ot not
-	    if (val.style.color !== "rgb(53, 120, 229)"){
+  notliked.forEach(
+    function(val){
+      
+      // checking color of liked post ot not
+      if (val.style.color !== "rgb(53, 120, 229)"){
 
         // clicking like button
         val.click();
 
         // set liked counter on info box
         liked = document.querySelector('#liked');
-		    liked.innerHTML = parseInt(liked.innerHTML) + 1;
+        liked.innerHTML = parseInt(liked.innerHTML) + 1;
 
-    	  setTimeout(function(){
+        setTimeout(function(){
           // printing to log
-	       logger(String(Date()) + " - " + String(liked.innerHTML));
-		   }, 2000)
+         logger(String(Date()) + " - " + String(liked.innerHTML));
+       }, 2000)
 
       }
-    });	
+    });  
 
   // i'm not sure about this
-	notliked = null;
+  notliked = null;
 }
 
 function changeListener() {
 
   // checking for liker 
-	if (liker === null) {
-		logger('creating listener.');
+  if (liker === null) {
+    logger('creating listener.');
 
     // creating listener
-		liker = setInterval(function(){
-				
+    liker = setInterval(function(){
+        
       // call like generator
       likeGenerator();
 
       // set auto scrolling
-		  window.scrollBy(0,50);
-		},
-			  
-		// interval 10 seconds
-		10000 );		
-	} else {
+      window.scrollBy(0,50);
+    },
+        
+    // interval 10 seconds
+    10000 );    
+  } else {
 
-		logger('removing listener.')
+    logger('removing listener.')
 
     // clear listener liker
-		clearInterval(liker);
-	}
+    clearInterval(liker);
+  }
 }
 
 // initilizing first time

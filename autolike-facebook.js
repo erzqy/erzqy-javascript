@@ -1,4 +1,7 @@
-var liker = null;
+var liker = null; // initialized liker variable "no doubt"
+var delay = 3000; // delay every like clicked
+var interval = 10000; // interval to checking and akumulate all like buttons
+
 
 function logger(argument) {
   console.log(argument);
@@ -73,7 +76,7 @@ function likeGenerator() {
         setTimeout(function(){
           // printing to log
          logger(String(Date()) + " - " + String(liked.innerHTML));
-       }, 2000)
+       }, delay)
 
       }
     });  
@@ -98,8 +101,7 @@ function changeListener() {
       window.scrollBy(0,50);
     },
         
-    // interval 10 seconds
-    10000 );    
+    interval );    
   } else {
 
     logger('removing listener.')

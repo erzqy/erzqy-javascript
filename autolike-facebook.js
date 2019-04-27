@@ -48,7 +48,7 @@ function likeGenerator() {
   notliked.forEach(
     function(val){
       
-      // checking color of liked post ot not
+      // checking color of liked post or not
       if (val.style.color !== "rgb(53, 120, 229)"){
         counted++;
       }
@@ -57,11 +57,11 @@ function likeGenerator() {
   alllike = document.querySelector('#alllike');
   alllike.innerHTML = parseInt(alllike.innerHTML) + counted;
 
-  // executing list like button
+  // executing list like buttons
   notliked.forEach(
     function(val){
       
-      // checking color of liked post ot not
+      // checking color of liked post or not
       if (val.style.color !== "rgb(53, 120, 229)"){
 
         // clicking like button

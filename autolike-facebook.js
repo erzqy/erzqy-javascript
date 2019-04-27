@@ -1,6 +1,5 @@
 var liker = null;
 
-
 function logger(argument) {
   console.log(argument);
 }
